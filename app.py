@@ -136,22 +136,25 @@ def getproductdetails():
 
     cursor=connection.cursor(pymysql.cursors.DictCursor)
 
-    sql="select * from product_details"
+    
 
 
-    cursor.execute("")
+    cursor.execute("select * from product_details")
 
     productdetails=cursor.fetchall()
 
     return jsonify(productdetails)
 
-
-
+# MPESA PAYMENT API
+# Making HTTP Requests to Safaricom Services
 import requests
+# Is a standard python module that allows you to get the current date and time, we will use it to generate the timestamp required by safaricom
 import datetime
+# library from flask that allows us to encode data to base64 format, this is required by safaricom to generate the password
 import base64
+# used to authenticate the user
 from requests.auth import HTTPBasicAuth
-
+# Creating route
 @app.route('/api/mpesa_payment', methods=['POST'])
 def mpesa_payment():
     if request.method == 'POST':
@@ -159,7 +162,7 @@ def mpesa_payment():
         amount = request.form['amount']
         phone = request.form['phone']
 
-        # Provide consumer_key and consumer_secret provided by safaricom
+        # Provide consumer_key and consumer_secret provided by safaricom to authenticate your application to their services, this is used to generate the access token, which is a security token that allows you to make transactions with safaricom services
         consumer_key = "GTWADFxIpUfDoNikNGqq1C3023evM6UH"
         consumer_secret = "amFbAoUByPV2rM5A"
 
